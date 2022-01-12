@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class SimpleMover : MonoBehaviour
 {
-    private PlayerInput playerInput;
-    [SerializeField] float speed = 0.01f;
+    //private PlayerInput playerInput;
+    [SerializeField] private PlayerInputSystem playerInput;
+    [SerializeField] float speed = 10.0f;
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        //playerInput = GetComponent<PlayerSystem>();
+        playerInput = GetComponent<PlayerInputSystem>();
     }
     private void Start()
     {
@@ -17,6 +19,6 @@ public class SimpleMover : MonoBehaviour
     }
     private void Update()
     {
-        gameObject.transform.Translate(playerInput.NewPos * speed);
+        gameObject.transform.Translate(playerInput.movement * speed * Time.deltaTime);
     }
 }

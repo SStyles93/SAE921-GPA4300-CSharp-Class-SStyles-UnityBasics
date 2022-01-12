@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private float axisSensivity = 0.05f;
-    [SerializeField] private Vector3 newPos;
+    [SerializeField] private Vector3 movement;
 
     #region Getter/Setter
 
-    public Vector3 NewPos
+    public Vector3 Movement
     {
-        get{ return newPos; }
-        set { newPos = value; }
+        get{ return movement; }
+        set { movement = value; }
     }
 
     #endregion
@@ -22,28 +22,28 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetAxis("Vertical") > axisSensivity)
         {
-            newPos.z = 1.0f;
+            movement.z = 1.0f;
         }
         if (Input.GetAxis("Vertical") < -axisSensivity)
         {
-            newPos.z = -1.0f;
+            movement.z = -1.0f;
         }
         else if (Input.GetAxis("Vertical") < axisSensivity && Input.GetAxis("Vertical") > -axisSensivity)
         {
-            newPos.z = 0.0f;
+            movement.z = 0.0f;
         }
 
         if (Input.GetAxis("Horizontal") > axisSensivity)
         {
-            newPos.x = 1.0f;
+            movement.x = 1.0f;
         }
         if (Input.GetAxis("Horizontal") < -axisSensivity)
         {
-            newPos.x = -1.0f;
+            movement.x = -1.0f;
         }
         else if (Input.GetAxis("Horizontal") < axisSensivity && Input.GetAxis("Horizontal") > -axisSensivity)
         {
-            newPos.x = 0.0f;
+            movement.x = 0.0f;
         }
 
 
