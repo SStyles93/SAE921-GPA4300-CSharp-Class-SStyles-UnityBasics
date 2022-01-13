@@ -27,12 +27,16 @@ public class Mob : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.tag == "Bullet")
+    //    {
+    //        health -= 10.0f;
+    //    }
+    //}
+    public void TakeDamage(float damage)
     {
-        if(other.tag == "Bullet")
-        {
-            health -= 10.0f;
-        }
+        health -= damage;
     }
 
     private void Kill()

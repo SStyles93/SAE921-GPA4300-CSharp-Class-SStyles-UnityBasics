@@ -44,6 +44,15 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Value"",
+                    ""id"": ""cfe2ceb1-b148-4a2b-ae85-45858238da7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""57e27b7e-510e-4dd3-9749-05dc9c013476"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
         m_Newactionmap_Move = m_Newactionmap.FindAction("Move", throwIfNotFound: true);
         m_Newactionmap_Rotate = m_Newactionmap.FindAction("Rotate", throwIfNotFound: true);
+        m_Newactionmap_Fire = m_Newactionmap.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,12 +204,14 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     private INewactionmapActions m_NewactionmapActionsCallbackInterface;
     private readonly InputAction m_Newactionmap_Move;
     private readonly InputAction m_Newactionmap_Rotate;
+    private readonly InputAction m_Newactionmap_Fire;
     public struct NewactionmapActions
     {
         private @InputSystem m_Wrapper;
         public NewactionmapActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Newactionmap_Move;
         public InputAction @Rotate => m_Wrapper.m_Newactionmap_Rotate;
+        public InputAction @Fire => m_Wrapper.m_Newactionmap_Fire;
         public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -204,6 +227,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Rotate.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnRotate;
                 @Rotate.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnRotate;
                 @Rotate.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnRotate;
+                @Fire.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
             if (instance != null)
@@ -214,6 +240,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Rotate.started += instance.OnRotate;
                 @Rotate.performed += instance.OnRotate;
                 @Rotate.canceled += instance.OnRotate;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -222,5 +251,6 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }

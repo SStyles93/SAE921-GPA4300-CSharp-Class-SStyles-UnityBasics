@@ -8,6 +8,7 @@ public class PlayerInputSystem : MonoBehaviour
     [Tooltip("\"Vector2\" from User input, used for movement")]
     [SerializeField] public Vector3 movement;
     [SerializeField] public Vector3 rotation;
+    [SerializeField] public bool fire;
 
 
 
@@ -31,5 +32,9 @@ public class PlayerInputSystem : MonoBehaviour
     public void OnRotate(InputValue value)
     {
         rotation.y = value.Get<Vector2>().x;
+    }
+    public void OnFire(InputValue value)
+    {
+        fire = true;
     }
 }
