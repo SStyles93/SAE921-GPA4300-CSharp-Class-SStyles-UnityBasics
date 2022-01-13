@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class SimpleMover : MonoBehaviour
 {
+    [Header("Script References")]
     //private PlayerInput playerInput;
+    [Tooltip("Link the Scripts corresponding to the name field")]
     [SerializeField] private PlayerInputSystem playerInput;
+    [Header("Player stats")]
+    [Tooltip("Player's speed value in meters/seconds")]
     [SerializeField] float speed = 10.0f;
 
     private void Awake()
@@ -20,5 +24,6 @@ public class SimpleMover : MonoBehaviour
     private void Update()
     {
         gameObject.transform.Translate(playerInput.movement * speed * Time.deltaTime);
+        gameObject.transform.Rotate(playerInput.rotation * speed * Time.deltaTime);
     }
 }

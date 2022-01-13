@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyAfterDelay : MonoBehaviour
+public class DestroyConditions : MonoBehaviour
 {
     //[SerializeField] private Vector3 newPos;
     [SerializeField] private float delay = 10.0f;
@@ -16,6 +16,13 @@ public class DestroyAfterDelay : MonoBehaviour
     {
         delay -= Time.deltaTime;
         if(delay <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Mob>())
         {
             Destroy(gameObject);
         }

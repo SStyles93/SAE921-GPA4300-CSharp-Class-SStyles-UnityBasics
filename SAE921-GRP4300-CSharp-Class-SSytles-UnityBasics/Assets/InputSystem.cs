@@ -35,6 +35,15 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""063d965b-3165-4203-823c-03ae426fd03a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1912f771-be7e-445b-bced-10a23f224ebe"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +121,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         // New action map
         m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
         m_Newactionmap_Move = m_Newactionmap.FindAction("Move", throwIfNotFound: true);
+        m_Newactionmap_Rotate = m_Newactionmap.FindAction("Rotate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,11 +182,13 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Newactionmap;
     private INewactionmapActions m_NewactionmapActionsCallbackInterface;
     private readonly InputAction m_Newactionmap_Move;
+    private readonly InputAction m_Newactionmap_Rotate;
     public struct NewactionmapActions
     {
         private @InputSystem m_Wrapper;
         public NewactionmapActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Newactionmap_Move;
+        public InputAction @Rotate => m_Wrapper.m_Newactionmap_Rotate;
         public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -178,6 +201,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnMove;
+                @Rotate.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnRotate;
+                @Rotate.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnRotate;
+                @Rotate.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnRotate;
             }
             m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
             if (instance != null)
@@ -185,6 +211,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Rotate.started += instance.OnRotate;
+                @Rotate.performed += instance.OnRotate;
+                @Rotate.canceled += instance.OnRotate;
             }
         }
     }
@@ -192,5 +221,6 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     public interface INewactionmapActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnRotate(InputAction.CallbackContext context);
     }
 }

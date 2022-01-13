@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputSystem : MonoBehaviour
 {
+    [Tooltip("\"Vector2\" from User input, used for movement")]
     [SerializeField] public Vector3 movement;
+    [SerializeField] public Vector3 rotation;
 
 
 
@@ -25,5 +27,9 @@ public class PlayerInputSystem : MonoBehaviour
     {
         movement.x = value.Get<Vector2>().x;
         movement.z = value.Get<Vector2>().y;
+    }
+    public void OnRotate(InputValue value)
+    {
+        rotation.y = value.Get<Vector2>().x;
     }
 }

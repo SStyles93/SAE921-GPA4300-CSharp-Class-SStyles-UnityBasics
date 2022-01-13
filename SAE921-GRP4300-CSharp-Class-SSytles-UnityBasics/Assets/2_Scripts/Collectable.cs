@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-
-    [SerializeField] private ScoreManagement scoreManagement;
     [SerializeField] private float speed = 100.0f;
 
     void Start()
     {
-        
+        FindObjectOfType<ScoreManager>().Drops.Add(gameObject);
     }
 
     // Update is called once per frame
@@ -21,10 +19,10 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
+
             Destroy(gameObject);
-            scoreManagement.IncrementScore();
         }
     }
 }
