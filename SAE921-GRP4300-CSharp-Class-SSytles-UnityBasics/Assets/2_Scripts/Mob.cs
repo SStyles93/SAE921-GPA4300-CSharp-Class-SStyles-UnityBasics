@@ -8,6 +8,9 @@ public class Mob : MonoBehaviour
 
     [SerializeField] private float health = 100.0f;
 
+    [SerializeField] private float internalTimer;
+    [SerializeField] private float tickTimer;
+
     public List<GameObject> Drops
     {
         get { return drops; }
@@ -21,19 +24,27 @@ public class Mob : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        internalTimer += Time.deltaTime;
+
+        if(internalTimer >= tickTimer)
+        {
+            internalTimer = 0.0f;
+            Tick();
+        }
+
         if(health <= 0.0f)
         {
             Kill();
         }
+
+
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.tag == "Bullet")
-    //    {
-    //        health -= 10.0f;
-    //    }
-    //}
+    void Tick()
+    {
+
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;

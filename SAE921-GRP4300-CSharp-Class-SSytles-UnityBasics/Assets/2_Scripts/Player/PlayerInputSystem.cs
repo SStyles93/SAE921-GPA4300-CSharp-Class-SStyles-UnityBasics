@@ -9,6 +9,7 @@ public class PlayerInputSystem : MonoBehaviour
     [SerializeField] public Vector3 movement;
     [SerializeField] public Vector3 rotation;
     [SerializeField] public bool fire;
+    [SerializeField] public bool jump;
 
 
 
@@ -36,5 +37,9 @@ public class PlayerInputSystem : MonoBehaviour
     public void OnFire(InputValue value)
     {
         fire = true;
+    }
+    public void OnJump(InputValue input)
+    {
+        jump = true;
     }
 }

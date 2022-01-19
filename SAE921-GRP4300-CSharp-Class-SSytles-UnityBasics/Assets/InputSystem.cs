@@ -53,6 +53,15 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Tap"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Value"",
+                    ""id"": ""fe6c0aa0-d8a6-423b-8abb-59556080f8f3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -125,11 +134,22 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""57e27b7e-510e-4dd3-9749-05dc9c013476"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e0252d8-4cd9-41ce-98de-7519fe8a0b6a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -143,6 +163,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         m_Newactionmap_Move = m_Newactionmap.FindAction("Move", throwIfNotFound: true);
         m_Newactionmap_Rotate = m_Newactionmap.FindAction("Rotate", throwIfNotFound: true);
         m_Newactionmap_Fire = m_Newactionmap.FindAction("Fire", throwIfNotFound: true);
+        m_Newactionmap_Jump = m_Newactionmap.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +226,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_Newactionmap_Move;
     private readonly InputAction m_Newactionmap_Rotate;
     private readonly InputAction m_Newactionmap_Fire;
+    private readonly InputAction m_Newactionmap_Jump;
     public struct NewactionmapActions
     {
         private @InputSystem m_Wrapper;
@@ -212,6 +234,7 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Newactionmap_Move;
         public InputAction @Rotate => m_Wrapper.m_Newactionmap_Rotate;
         public InputAction @Fire => m_Wrapper.m_Newactionmap_Fire;
+        public InputAction @Jump => m_Wrapper.m_Newactionmap_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +253,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Fire.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnFire;
+                @Jump.started -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_NewactionmapActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_NewactionmapActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,6 +269,9 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -252,5 +281,6 @@ public partial class @InputSystem : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRotate(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

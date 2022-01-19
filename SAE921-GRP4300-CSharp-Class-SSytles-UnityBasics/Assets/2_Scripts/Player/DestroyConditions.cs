@@ -20,13 +20,13 @@ public class DestroyConditions : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Mob>())
-        {
-            Destroy(gameObject);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.GetComponent<Mob>())
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
     //private void OnMouseOver()
     //{
     //    if (Input.GetKeyDown(KeyCode.Mouse0))

@@ -20,7 +20,6 @@ public class Shooter : MonoBehaviour
     {
         if (playerInput.fire)
         {
-            ProcessRayCast();
             currentBullet = Instantiate(bullet, 
                 barel.position,
                 barel.rotation);
@@ -34,29 +33,6 @@ public class Shooter : MonoBehaviour
         if(currentBullet != null)
         {
             currentBullet.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * bulletSpeed * Time.deltaTime, ForceMode.Impulse);
-        }
-        
-    }
-    //Raycastst the bullet trajectory (Instantly... :( )
-    private void ProcessRayCast()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(barel.transform.position, barel.transform.forward, out hit, range))
-        {
-
-            //TODO: add some hit effect
-            Mob target = hit.transform.GetComponent<Mob>();
-            if (target == null)
-            {
-                return;
-            }
-
-            target.TakeDamage(10);
-            
-        }
-        else
-        {
-            return;
-        }
+        }       
     }
 }
