@@ -47,11 +47,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aa9b796f90d7ff4e84418b811411572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drops:
-  - {fileID: 2875601377464146093, guid: 79a2733d6b4fc9740bfe2b21824edb4b, type: 3}
-  health: 100
-  internalTimer: 0
-  tickTimer: 0
+  _drops: []
+  _health: 100
+  _speed: 1
+  _internalTimer: 0
+  _tickTimer: 0
+  _currentTarget: {fileID: 0}
+  distanceToSwitchTargets: 0.85
+  _previousTarget: {fileID: 0}
+  waypointManager: {fileID: 0}
 --- !u!54 &7717601914752881185
 Rigidbody:
   m_ObjectHideFlags: 0

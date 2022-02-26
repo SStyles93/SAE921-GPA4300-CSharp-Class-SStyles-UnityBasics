@@ -11,10 +11,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int amount;
 
     [Header("Object \"Tracking\"")]
-    [SerializeField] private List<Mob> prefabs;
+    [SerializeField] private List<Mob> mobs;
     [SerializeField] private List<Transform> spawnPositions;
 
+    private WaypointManager waypointManager;
 
+    private void Awake()
+    {
+        waypointManager = GetComponent<WaypointManager>();
+    }
     void Start()
     {
         for (int i = 0; i < amount; i++)
@@ -24,21 +29,22 @@ public class SpawnManager : MonoBehaviour
             //    coinPrefab,
             //    spawnPositions[Random.Range(0, spawnPositions.Count - 1)].position,
             //    coinPrefab.transform.rotation));
-            prefabs.Add(Instantiate(
+            mobs.Add(Instantiate(
                 prefab,
                 spawnPositions[i].position,
                 prefab.transform.rotation));
+            mobs[i].WaypointManager = waypointManager;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < prefabs.Count; i++)
+        for (int i = 0; i < mobs.Count; i++)
         {
-            if(prefabs[i] == null)
+            if(mobs[i] == null)
             {
-                prefabs.RemoveAt(i);
+                mobs.RemoveAt(i);
             }
         }
     }
