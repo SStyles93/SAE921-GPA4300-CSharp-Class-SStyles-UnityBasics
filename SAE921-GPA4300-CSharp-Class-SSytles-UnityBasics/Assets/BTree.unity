@@ -1970,9 +1970,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 0}
-  _diamond: {fileID: 0}
-  _door: {fileID: 0}
-  _van: {fileID: 0}
+  _diamond: {fileID: 1972329263}
+  _door: {fileID: 1791870521}
+  _van: {fileID: 1292810098}
   _other: {fileID: 0}
 --- !u!1 &716268924
 GameObject:
@@ -4189,6 +4189,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285749801}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1292810098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 647a124cd5c1147a793fcacc25f6be1a, type: 3}
+  m_PrefabInstance: {fileID: 631430678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1355377654
 GameObject:
   m_ObjectHideFlags: 0
@@ -5671,6 +5676,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1972329263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a5028766c6c2448878d200bb33de1f59, type: 3}
+  m_PrefabInstance: {fileID: 390087451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1992935634
 GameObject:
   m_ObjectHideFlags: 0
