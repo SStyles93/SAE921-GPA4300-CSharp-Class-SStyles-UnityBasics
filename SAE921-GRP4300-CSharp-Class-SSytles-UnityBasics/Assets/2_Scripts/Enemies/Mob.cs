@@ -74,7 +74,9 @@ public class Mob : MonoBehaviour
     private void FollowTarget(Waypoint waypoint)
     {
         Vector3 direction = (waypoint.transform.position - transform.position).normalized;
-        transform.LookAt(waypoint.transform.position);
+        Vector3 lookVec3 = waypoint.transform.position;
+        lookVec3.y = 1.0f;
+        transform.LookAt(lookVec3);
         transform.position += direction * _speed * Time.deltaTime;
     }
 
