@@ -13,6 +13,8 @@ public class BTLeaf : BTNode
     }
     public override NodeStatus Process()
     {
+        Debug.Log($"Leaf process: {_name}");
+
         if(processMethod != null)
         {
             return processMethod();

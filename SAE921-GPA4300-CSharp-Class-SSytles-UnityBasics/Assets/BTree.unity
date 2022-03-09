@@ -1971,9 +1971,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 0}
   _diamond: {fileID: 1972329263}
-  _door: {fileID: 1791870521}
+  _frontDoor: {fileID: 1791870527}
+  _backDoor: {fileID: 919599692}
   _van: {fileID: 1292810098}
-  _other: {fileID: 0}
+  DetectionRange: 3
 --- !u!1 &716268924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,6 +2563,7 @@ GameObject:
   - component: {fileID: 919599688}
   - component: {fileID: 919599687}
   - component: {fileID: 919599691}
+  - component: {fileID: 919599692}
   m_Layer: 0
   m_Name: BackDoor
   m_TagString: Untagged
@@ -2652,15 +2654,29 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919599686}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &919599692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919599686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6685da5089a9904a94302e0665082ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _obstacle: {fileID: 0}
+  _locked: 0
 --- !u!1 &925317490
 GameObject:
   m_ObjectHideFlags: 0
@@ -5177,6 +5193,7 @@ GameObject:
   - component: {fileID: 1791870523}
   - component: {fileID: 1791870522}
   - component: {fileID: 1791870526}
+  - component: {fileID: 1791870527}
   m_Layer: 0
   m_Name: FrontDoor
   m_TagString: Untagged
@@ -5267,15 +5284,29 @@ NavMeshObstacle:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791870521}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1791870527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791870521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6685da5089a9904a94302e0665082ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _obstacle: {fileID: 0}
+  _locked: 1
 --- !u!4 &1796479289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a5028766c6c2448878d200bb33de1f59, type: 3}

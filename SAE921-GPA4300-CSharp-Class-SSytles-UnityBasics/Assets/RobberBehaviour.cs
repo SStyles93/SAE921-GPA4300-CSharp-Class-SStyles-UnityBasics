@@ -6,16 +6,20 @@ using UnityEngine.AI;
 public class RobberBehaviour : MonoBehaviour
 {
     private BTTree _robberTree;
-    private BTNode _goToDoor;
+    private BTNode _goToFrontDoor;
+    private BTNode _goToBackDoor;
     private BTNode _goToDiamond;
     private BTNode _goToVan;
-    private BTNode _goToOther;
+    private BTSequence _steelAction;
+    private BTSelector _selectADoor;
 
     [SerializeField] private NavMeshAgent _navMeshAgent;
+
     [SerializeField] private GameObject _diamond;
-    [SerializeField] private GameObject _door;
+    [SerializeField] private LockableDoor _frontDoor;
+    [SerializeField] private LockableDoor _backDoor;
     [SerializeField] private GameObject _van;
-    [SerializeField] private GameObject _other;
+    [SerializeField] private float DetectionRange;
 
     void Start()
     {
@@ -23,39 +27,33 @@ public class RobberBehaviour : MonoBehaviour
             Debug.Log("No nav mesh agent !!!");
 
         _robberTree = new BTTree("Root");
+        _goToFrontDoor = new BTLeaf("Got to the front door", goToFrontDoorBehaviour);
+        _goToBackDoor = new BTLeaf("Got to the back dook", goToBackDoorBehaviour);
         _goToDiamond = new BTLeaf("Go To Diamond", goToDiamondBehaviour);
-        _goToDoor = new BTLeaf("Go To Door", goToDoorBehaviour);
         _goToVan = new BTLeaf("Go To Van", goToVanBehaviour);
-        _goToOther = new BTLeaf("Go To Other", goToOtherBehaviour);
+        _steelAction = new BTSequence("Steel The Diamond");
+        _selectADoor = new BTSelector("Select a Door");
 
-        _robberTree.AddChild(_goToDoor);
-        _robberTree.AddChild(_goToDiamond);
-        _robberTree.AddChild(_goToVan);
-        _goToDiamond.AddChild(_goToOther);
+        _selectADoor.AddChild(_goToFrontDoor);
+        _selectADoor.AddChild(_goToBackDoor);
+
+        _steelAction.AddChild(_selectADoor);
+        _steelAction.AddChild(_goToDiamond);
+        _steelAction.AddChild(_goToVan);
+
+        _robberTree.AddChild(_steelAction);
 
         _robberTree.printTree();
     }
 
-    private BTNode.NodeStatus goToDiamondBehaviour()
+    private void Update()
     {
-        return GoToDestination(_diamond);
-    }
-    private BTNode.NodeStatus goToDoorBehaviour()
-    {
-        return GoToDestination(_door);
-    }
-    private BTNode.NodeStatus goToVanBehaviour()
-    {
-        return GoToDestination(_van);
-    }
-    private BTNode.NodeStatus goToOtherBehaviour()
-    {
-        return GoToDestination(_other);
+        Debug.Log(_robberTree.Process());
     }
 
     private BTNode.NodeStatus GoToDestination(GameObject destination)
     {
-        if (Vector3.Distance(_diamond.gameObject.transform.position, transform.position) < Mathf.Epsilon)
+        if (Vector3.Distance(destination.transform.position, transform.position) < DetectionRange)
         {
             return BTNode.NodeStatus.SUCCESS;
         }
@@ -65,5 +63,42 @@ public class RobberBehaviour : MonoBehaviour
             return BTNode.NodeStatus.RUNNING;
         }
     }
+    private BTNode.NodeStatus GoToDoor(LockableDoor door)
+    {
+        BTNode.NodeStatus status = GoToDestination(door.gameObject);
+        if (status == BTNode.NodeStatus.SUCCESS)
+        {
+            //Code to handle the door
+            if (door.CanOpenTheDoor())
+            {
+                door.OpenTheDoor();
+                return BTNode.NodeStatus.SUCCESS;
+            }
+            else
+            {
+                return BTNode.NodeStatus.FAILURE;
+            }
+        }
+        else
+        {
+            return status;
+        }
+    }
 
+    private BTNode.NodeStatus goToDiamondBehaviour()
+    {
+        return GoToDestination(_diamond);
+    }
+    private BTNode.NodeStatus goToFrontDoorBehaviour()
+    {
+        return GoToDoor(_frontDoor);
+    }
+    private BTNode.NodeStatus goToBackDoorBehaviour()
+    {
+        return GoToDoor(_backDoor);
+    }
+    private BTNode.NodeStatus goToVanBehaviour()
+    {
+        return GoToDestination(_van);
+    }
 }
